@@ -1,0 +1,26 @@
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        <div class="wrapper-row" style="display: flex;">
+            <div class="field" 
+                style="border: 1px solid red; width: 150px; height: 20px;"
+            >
+                Día
+            </div>
+            <div class="field" style="border: 1px solid red; width: 150px; height: 20px;">Almuerzo</div>
+            <div class="field" style="border: 1px solid red; width: 150px; height: 20px;">Cena</div>
+        </div>
+        
+        {% for day in days %}
+            {% include 'row.html' %}
+        {% endfor %}
+    </div>
+    <div>
+        <h1> TUS INGREDIENTES </h1>
+        
+        <ul>
+            {% for ingredient in ingredients %}
+                <li>{{ingredient}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
