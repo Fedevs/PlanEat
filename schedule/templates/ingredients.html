@@ -2,15 +2,14 @@
     <div>
         <div class="wrapper-row" style="display: flex;">
             <div class="field" 
-                style="border: 1px solid red; width: 150px; height: 20px;"
+                style="border: 1px solid red; width: 170px; height: 20px;"
             >
                 Día
             </div>
-            <div class="field" style="border: 1px solid red; width: 150px; height: 20px;">Almuerzo</div>
-            <div class="field" style="border: 1px solid red; width: 150px; height: 20px;">Cena</div>
+            <div class="field" style="border: 1px solid red; width: 170px; height: 20px;">Almuerzo</div>
+            <div class="field" style="border: 1px solid red; width: 170px; height: 20px;">Cena</div>
         </div>
-        
-        {% for day in days %}
+        {% for lunch, dinner, day in final_meals %}
             {% include 'row.html' %}
         {% endfor %}
     </div>

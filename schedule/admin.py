@@ -7,6 +7,8 @@ from schedule.models import Recipe, Meal, Ingredient, Category
 class RecipeInline(admin.TabularInline):
     model = Recipe
     fields = ('meal', 'ingredient', 'quantity')
+    raw_id_fields = ('ingredient',)
+
 
 
 class MealAdmin(admin.ModelAdmin):
@@ -14,12 +16,14 @@ class MealAdmin(admin.ModelAdmin):
     inlines = [
         RecipeInline,
     ]
+    raw_id_fields = ('category',)
 
 class CategoryAdmin(admin.ModelAdmin):
     fields = ('name',)
 
 class IngredientAdmin(admin.ModelAdmin):
     fields = ('name',)
+    search_fields = ('name',)
 
 admin.site.register(Meal, MealAdmin)
 admin.site.register(Ingredient, IngredientAdmin)

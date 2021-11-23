@@ -13,7 +13,13 @@ Planificador de comidas semanales
 ### To-dos
 - generar requirements.txt
 - Generar un formulario de carga
-- Presentación de las comidas?
-- Armar la tabla de Calendario
-- Scheduler
-- Presentación Visual del Calendario
+- Mejorar Visual del Calendario
+- Refactorizar schedule/views.py
+- Ver pasado
+- Mostrar lista ingredientes segun schedule
+
+
+#### Features
+- Agregar unidad de medida en los ingredientes
+- Agregar recomendación de comida en base a ingredientes
+
