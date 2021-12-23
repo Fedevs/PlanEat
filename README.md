@@ -20,6 +20,6 @@ Planificador de comidas semanales
 
 
 #### Features
-- Agregar unidad de medida en los ingredientes
+- Agregar unidad de medida en los ingredientes => DONE
 - Agregar recomendación de comida en base a ingredientes
 

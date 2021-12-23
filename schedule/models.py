@@ -1,7 +1,21 @@
 from django.db import models
 
 class Ingredient(models.Model):
+    MEASUREMENT_UNIT_CHOICES = [
+        ('ml', 'Mililitro'),
+        ('l', 'Litro'),
+        ('mg', 'Miligramo'),
+        ('g', 'Gramo'),
+        ('kg', 'Kilogramo'),
+        ('u', 'Unidad'),
+    ]
     name = models.CharField(max_length=50, unique=True, verbose_name='Nombre',)
+    measurement_unit = models.CharField(
+        max_length=2,
+        choices=MEASUREMENT_UNIT_CHOICES,
+        default='g',
+        verbose_name='Unidad de medida',
+    )
 
     def __str__(self) -> str:
         return f'{self.name}'
@@ -17,7 +31,6 @@ class Meal(models.Model):
         ('VG','Vegano'),
         ('VT','Vegetariano'),
         ('OM','Omnívoro'),
-        ('CL','Celíaco'),
     ]
     name = models.CharField(max_length=50, verbose_name='Nombre')
     cooking_time = models.CharField(max_length=10, verbose_name='Tiempo de cocción')
