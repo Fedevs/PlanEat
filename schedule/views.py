@@ -2,15 +2,14 @@ from os import name
 from django.shortcuts import render
 from .models import Meal
 from random import choice
-# Create your views here.
 
 def schedule(request):
-    meals = {}
-    meals["LN"] = list(Meal.objects.filter(day_time="LN"))
-    meals["DN"] = list(Meal.objects.filter(day_time="DN"))
-    meals["DL"] = list(Meal.objects.filter(day_time="DL"))
-
     days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    day_times = ['LN', 'DN', 'DL']
+    meals = {}
+    for day_time in day_times:
+        meals[day_time] = list(Meal.objects.filter(day_time=day_time))
+
     week = {}
     for day in days:
         week[day] = {"LN":"",
