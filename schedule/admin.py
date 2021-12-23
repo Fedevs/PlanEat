@@ -10,7 +10,6 @@ class RecipeInline(admin.TabularInline):
     raw_id_fields = ('ingredient',)
 
 
-
 class MealAdmin(admin.ModelAdmin):
     fields = ('name', 'cooking_time', 'tags', 'day_time', 'category', )
     inlines = [
@@ -18,12 +17,15 @@ class MealAdmin(admin.ModelAdmin):
     ]
     raw_id_fields = ('category',)
 
+
 class CategoryAdmin(admin.ModelAdmin):
     fields = ('name',)
 
+
 class IngredientAdmin(admin.ModelAdmin):
-    fields = ('name',)
+    fields = ('name', 'measurement_unit')
     search_fields = ('name',)
+
 
 admin.site.register(Meal, MealAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
