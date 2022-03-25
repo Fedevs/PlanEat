@@ -18,7 +18,11 @@ class Ingredient(models.Model):
     )
 
     def __str__(self) -> str:
-        return f'{self.name}'
+        return self.name
+
+    class Meta:
+        verbose_name = 'Ingrediente'
+        verbose_name_plural = 'Ingredientes'
 
 
 class Meal(models.Model):
@@ -49,7 +53,11 @@ class Meal(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f'{self.name}'
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Comida'
+        verbose_name_plural = 'Comidas'
 
 
 class Recipe(models.Model):
@@ -58,14 +66,19 @@ class Recipe(models.Model):
     quantity =   models.FloatField(verbose_name='Cantidad')
 
     def __str__(self) -> str:
-        return f'{self.meal}'
+        return self.meal
+    
+    class Meta:
+        verbose_name = 'Receta'
+        verbose_name_plural = 'Recetas'
 
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Categoría')
 
     def __str__(self) -> str:
-        return f'{self.name}'
-    
+        return self.name
 
-
+    class Meta:
+        verbose_name = 'Categoría'
+        verbose_name_plural = 'Categorias'
