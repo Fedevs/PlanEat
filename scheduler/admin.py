@@ -25,8 +25,9 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class ScheduleAdmin(admin.ModelAdmin):
-    search_fields = ('name',)
-    filter_fields = ('date', 'meal_time',)
+    search_fields = ('meal__name',)
+    list_filter = ('date', 'meal_time', 'meal__category',)
+    list_display = ('date', 'meal_time', 'meal',)
 
 
 admin.site.register(Meal, MealAdmin)
