@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from schedule.models import Recipe, Meal, Ingredient, Category, Schedule
+from scheduler.models import Recipe, Meal, Ingredient, Category, Schedule
 
 
 class RecipeInline(admin.TabularInline):

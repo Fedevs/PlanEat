@@ -1,0 +1,16 @@
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        {% for meal in menu %}
+            {{ meal.date }} {{ meal.meal_time }} {{ meal.name }}
+        {% endfor %}
+    </div>
+    <div>
+        <h1> TUS INGREDIENTES </h1>
+        
+        <ul>
+            {% for ingredient in ingredients %}
+                <li>{{ingredient}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
