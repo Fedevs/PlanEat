@@ -20,6 +20,10 @@ class Ingredient(models.Model):
     def __str__(self) -> str:
         return f'{self.name}'
 
+    class Meta:
+        verbose_name = 'Ingrediente'
+        verbose_name_plural = 'Ingredientes'
+
 
 class Meal(models.Model):
     DAY_TIME_CHOICES = [
@@ -50,6 +54,10 @@ class Meal(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name}'
+    
+    class Meta:
+        verbose_name = 'Comida'
+        verbose_name_plural = 'Comidas'
 
 
 class Recipe(models.Model):
@@ -59,6 +67,10 @@ class Recipe(models.Model):
 
     def __str__(self) -> str:
         return f'{self.meal}'
+    
+    class Meta:
+        verbose_name = 'Receta'
+        verbose_name_plural = 'Recetas'
 
 
 class Category(models.Model):
@@ -69,3 +81,6 @@ class Category(models.Model):
     
 
 
+    class Meta:
+        verbose_name = 'Categoría'
+        verbose_name_plural = 'Categorias'
