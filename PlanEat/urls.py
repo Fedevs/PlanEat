@@ -16,8 +16,10 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 
+
 urlpatterns = [
     # path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
     path('', include('scheduler.urls')),
 ]
