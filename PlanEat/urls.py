@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('scheduler/', include('scheduler.urls')),
+    path('', include('schedule.urls')),
 ]

@@ -2,24 +2,31 @@
 
 Planificador de comidas semanales
 
-## Instalacion
+## Instalación
 
-- Crear venv (como mas te guste)
-- pip install django (en el to-do vamos a hacer requirements) 
-
+Crear venv (como mas te guste)
 
 
+Instalar los requerimientos
 
-### To-dos
-- generar requirements.txt
-- Generar un formulario de carga
-- Mejorar Visual del Calendario
-- Refactorizar schedule/views.py
-- Ver pasado
-- Mostrar lista ingredientes segun schedule
+`~$ pip install -r requirements.txt`
 
 
-#### Features
-- Agregar unidad de medida en los ingredientes => DONE
-- Agregar recomendación de comida en base a ingredientes
+Correr migraciones:
 
+`~$ python manage.py migrate`
+
+
+Crear un superusario para acceder al admin:
+
+`~$ python manage.py createsuperuser`
+
+
+Cargar datos iniciales:
+
+`~$ python manage.py loaddata schedule/fixtures/init_data.json` 
+
+
+Iniciar el servidor:
+
+`~$ python manage.py runserver`
