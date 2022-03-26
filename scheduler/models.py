@@ -63,7 +63,7 @@ class Meal(models.Model):
 
 
 class Recipe(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE,  verbose_name='Comida')
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE,  verbose_name='Comida', related_name='recipes')
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipes', verbose_name='Ingrediente')
     quantity = models.FloatField(verbose_name='Cantidad')
 
@@ -100,7 +100,9 @@ class Schedule(models.Model):
     )
     date = models.DateField(verbose_name='Fecha')
     is_eaten = models.BooleanField(default=False, verbose_name='Consumida')
-    meal = models.ForeignKey('Meal', verbose_name='Comida', on_delete=models.CASCADE)
+    meal = models.ForeignKey(
+        'Meal', verbose_name='Comida', on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self) -> str:
         return f'{self.date} - {self.meal_time} - {self.meal}'
@@ -109,3 +111,4 @@ class Schedule(models.Model):
         verbose_name = 'Menú'
         verbose_name_plural = 'Menús'
         unique_together = ['date', 'meal_time']
+        ordering = ('date', '-meal_time',)
