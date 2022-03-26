@@ -4,10 +4,8 @@ from datetime import date, timedelta
 from django.db.models import Q
 
 from .models import Meal, Schedule
-# Create your views here.
 
 def schedule():
-    #TODO: revisar como empieza
     starting_date = date.today()
     current_date = starting_date
     menu =[]

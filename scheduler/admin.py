@@ -34,5 +34,3 @@ admin.site.register(Meal, MealAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
-
-# Register your models here.
