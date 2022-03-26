@@ -1,8 +1,44 @@
 from os import name
-from django.shortcuts import render
-from .models import Meal
+from django.shortcuts import render, redirect
+from django.forms import inlineformset_factory
+from schedule.forms import IngredientForm, MealForm, RecipeForm, RecipeFormSet
+from .models import Ingredient, Meal, Recipe
 from random import choice
 # Create your views here.
+
+def meal(request):
+    FormSet = inlineformset_factory(Meal, Recipe, can_delete=False, form=RecipeForm, extra=1)
+    if request.method == 'POST':
+        
+        if 'add' in request.POST:
+            print(request.POST)
+            cp = request.POST.copy()
+            cp['recipe_form-TOTAL_FORMS'] = int(cp['recipe_form-TOTAL_FORMS'])+ 1
+            recipe_form = FormSet(cp,prefix='recipe_form')
+
+            meal_form = MealForm(cp)
+            return render(request=request, template_name="meal.html", context={"meal_form":meal_form, "recipe_form":recipe_form})
+        meal_form = MealForm(request.POST)
+        if meal_form.is_valid():
+            meal = meal_form.save()
+            recipe_formset = FormSet(request.POST, prefix='recipe_form')
+            if recipe_formset.is_valid():
+                for recipe in recipe_formset:
+                    recipe.save(meal)
+            return redirect("meal")
+    recipe_form = FormSet(prefix='recipe_form')
+    meal_form = MealForm()
+    
+    return render(request=request, template_name="meal.html", context={"meal_form":meal_form, "recipe_form":recipe_form})
+
+def ingredient(request):
+    if request.method == 'POST':
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            ingredient = form.save()
+            return redirect("ingredient")
+    form = IngredientForm()
+    return render(request=request, template_name="ingredient.html", context={"ingredient_form":form})
 
 def schedule(request):
     meals = {}
