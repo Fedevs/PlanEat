@@ -50,7 +50,8 @@ class Meal(models.Model):
         default='BR',
         verbose_name='Momento del día',
     )
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Categoria')
+    yields = models.IntegerField(verbose_name='Porcion', default=1)
+    category = models.ForeignKey('category', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Categoria')
     enabled = models.BooleanField(default=True, verbose_name='Habilitada')
     cooking_time = models.DurationField(verbose_name='Tiempo de cocción', null=True, blank=True)
 
