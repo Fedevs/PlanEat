@@ -1,15 +1,38 @@
 <div style="display: flex; justify-content: space-around;">
     <div>
-        {% for meal in menu %}
-            {{ meal.date }} {{ meal.meal_time }} {{ meal.name }}
-        {% endfor %}
+        <div>
+            <h1> Cambios en el menu </h1>
+            
+            {% if menu_changes|length %}
+                <ul>
+                    {% for schedule in menu_changes %}
+                        {% if schedule.meal %}
+                            <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div>No hay cambios en el menu</div>
+            {% endif %}
+        </div>
+        <div>
+            <h1> Menu cumpleto </h1>
+            
+            <ul>
+                {% for schedule in full_menu %}
+                    {% if schedule.meal %}
+                        <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     <div>
-        <h1> TUS INGREDIENTES </h1>
+        <h1> Ingredientes a comprar </h1>
         
         <ul>
-            {% for ingredient in ingredients %}
-                <li>{{ingredient}}</li>
+            {% for name, info in ingredients.items %}
+                <li>{{name}}: {{info.quantity}} {{info.unit}}</li>
             {% endfor %}
         </ul>
     </div>

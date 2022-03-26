@@ -5,14 +5,15 @@ from django.db.models import Q
 
 from .models import Meal, Schedule
 
-def schedule():
+
+def create_or_update_week_menu():
+    days = calendar.day_name
     starting_date = date.today()
     current_date = starting_date
-    menu =[]
+    menu_changes = []
 
-    days = calendar.day_name
     for _ in days:
-        if calendar.day_name[current_date.weekday()] == 'Monday':
+        if days[current_date.weekday()] == 'Monday':
             break
 
         for meal_time in ['LN', 'DN']:
@@ -34,10 +35,11 @@ def schedule():
             new_meal_scheduled, _ = Schedule.objects.update_or_create(
                 date=current_date, meal_time=meal_time, defaults={"meal": meal}
             )
-            menu.append(new_meal_scheduled)
+            menu_changes.append(new_meal_scheduled)
 
         current_date += timedelta(days=1)
-    return menu
+    return menu_changes
+
 
 def meal_validity(meal: Meal, current_date, meal_time):
     previous_meals = Schedule.objects.filter(
@@ -49,3 +51,38 @@ def meal_validity(meal: Meal, current_date, meal_time):
     previous_categories = meals_in_frequency.values_list('meal__category__name', flat=True)
 
     return not meal.category.name in previous_categories
+
+
+def get_last_monday():
+    days = calendar.day_name
+    today = date.today()
+
+    last_monday = today - timedelta(days=today.weekday())
+
+    return last_monday
+
+
+def get_current_menu():
+    last_monday = get_last_monday()
+    menu = Schedule.objects.filter(date__gte=last_monday)
+
+    return menu
+
+
+def get_ingredients_needed(menu):
+    ingredients = {}
+
+    for schedule in menu.iterator():
+        if schedule.meal is not None:
+            recipes = schedule.meal.recipes.all()       
+            for recipe in recipes.iterator():
+                ingredient = recipe.ingredient
+
+                if ingredient.name not in ingredients.keys():
+                    ingredients[ingredient.name] = {
+                        'quantity': 0,
+                        'unit': ingredient.measurement_unit,
+                    }
+                
+                ingredients[ingredient.name]['quantity'] += recipe.quantity            
+    return ingredients
