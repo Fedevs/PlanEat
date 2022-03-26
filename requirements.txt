@@ -4,3 +4,4 @@ Django==4.0.3
 django-crispy-forms==1.14.0
 django-forms-fieldset==1.0.1
 sqlparse==0.4.2
+django-grappelli==3.0.3
