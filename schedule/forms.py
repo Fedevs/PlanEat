@@ -48,16 +48,17 @@ class RecipeForm(forms.ModelForm):
     def save(self, meal, commit=True):
 
         cleaned_data = self.cleaned_data
+        if 'id' in cleaned_data:
 
-        cleaned_data.pop('id')
-        cleaned_data['meal'] = meal
+            cleaned_data.pop('id')
+            cleaned_data['meal'] = meal
 
-        if commit:
-            recipe = Recipe.objects.create(**cleaned_data)
-            return recipe
-        
+            if commit:
+                recipe = Recipe.objects.create(**cleaned_data)
+                return recipe
+            
         return None
 
 
     
-RecipeFormSet = forms.inlineformset_factory(Meal, Recipe, fields=('ingredient', 'quantity'), extra=1)
+RecipeFormSet = forms.inlineformset_factory(Meal, Recipe, can_delete=False, form=RecipeForm, extra=1)

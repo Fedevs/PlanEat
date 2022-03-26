@@ -7,17 +7,23 @@
       width: 45% !important;
     }
 </style>
-<div class="container py-5">
-  <h1>Create meal</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ meal_form|crispy }}
-    <div class="d-flex w-100 flex-wrap ingredientes" style="justify-content: space-between">
-    {{ recipe_form.as_p }}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="container py-5">
+        <h1>Create meal</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {{ meal_form|crispy }}
+          <div class="d-flex w-100 flex-wrap ingredientes" style="justify-content: space-between">
+          {{ recipe_form.as_p }}
+          </div>
+          <button class="btn btn-primary" type="submit">Create</button>
+          <button class="btn btn-secondary" name="add_ingredient" type="add">Add Ingredient</button>
+        </form>
+      </div>
+    </div>
   </div>
-    <button class="btn btn-primary" type="submit">Create</button>
-    <button class="btn btn-secondary" name="add" type="add">Add Ingredient</button>
-  </form>
 </div>
 
 {% endblock %}

@@ -1,35 +1,33 @@
+from curses.ascii import HT
 from os import name
+from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from django.forms import inlineformset_factory
-from schedule.forms import IngredientForm, MealForm, RecipeForm, RecipeFormSet
+from schedule.forms import IngredientForm, MealForm, RecipeFormSet
 from .models import Ingredient, Meal, Recipe
 from random import choice
 # Create your views here.
 
 def meal(request):
-    FormSet = inlineformset_factory(Meal, Recipe, can_delete=False, form=RecipeForm, extra=1)
+    
     if request.method == 'POST':
         
-        if 'add' in request.POST:
-            print(request.POST)
-            cp = request.POST.copy()
-            cp['recipe_form-TOTAL_FORMS'] = int(cp['recipe_form-TOTAL_FORMS'])+ 1
-            recipe_form = FormSet(cp,prefix='recipe_form')
+        if 'add_ingredient' in request.POST:
 
-            meal_form = MealForm(cp)
-            return render(request=request, template_name="meal.html", context={"meal_form":meal_form, "recipe_form":recipe_form})
-        meal_form = MealForm(request.POST)
-        if meal_form.is_valid():
-            meal = meal_form.save()
-            recipe_formset = FormSet(request.POST, prefix='recipe_form')
-            if recipe_formset.is_valid():
-                for recipe in recipe_formset:
-                    recipe.save(meal)
-            return redirect("meal")
-    recipe_form = FormSet(prefix='recipe_form')
+            return _handle_fieldset_addition(request)
+            
+        return _handle_recipe_meal_creation(request)
+        
+    recipe_form = RecipeFormSet(prefix='recipe_form')
     meal_form = MealForm()
     
-    return render(request=request, template_name="meal.html", context={"meal_form":meal_form, "recipe_form":recipe_form})
+    return render(
+        request=request,
+        template_name="meal.html",
+        context={
+            "meal_form":meal_form,
+            "recipe_form":recipe_form
+            }
+        )
 
 def ingredient(request):
     if request.method == 'POST':
@@ -87,3 +85,38 @@ def schedule(request):
 
 def meal_valid(slot, available_meals):
     return True
+
+def _handle_recipe_meal_creation(request: HttpRequest) -> HttpRequest:
+    """_handle_recipe_meal_creation handles the creation of a new meal.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        HttpRequest: The request object.
+    """    
+    meal_form = MealForm(request.POST)
+    if meal_form.is_valid():
+        meal = meal_form.save()
+        recipe_formset = RecipeFormSet(request.POST, prefix='recipe_form')
+        if recipe_formset.is_valid():
+            for recipe in recipe_formset:
+                recipe.save(meal)
+        return redirect("meal")
+
+def _handle_fieldset_addition(request: HttpRequest) -> HttpRequest:
+    """_handle_fieldset_addition handles the addition of a new fieldset to the form.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        HttpRequest: The request object.
+    """
+
+    cp = request.POST.copy()
+    cp['recipe_form-TOTAL_FORMS'] = int(cp['recipe_form-TOTAL_FORMS'])+ 1
+    recipe_form = RecipeFormSet(cp,prefix='recipe_form')
+
+    meal_form = MealForm(cp)
+    return render(request=request, template_name="meal.html", context={"meal_form":meal_form, "recipe_form":recipe_form})
