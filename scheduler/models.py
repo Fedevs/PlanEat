@@ -64,7 +64,7 @@ class Meal(models.Model):
 
 
 class Recipe(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE,  verbose_name='Comida')
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE,  verbose_name='Comida', related_name='recipes')
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipes', verbose_name='Ingrediente')
     quantity = models.FloatField(verbose_name='Cantidad')
 
