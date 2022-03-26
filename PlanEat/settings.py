@@ -36,14 +36,15 @@ INSTALLED_APPS = [
     # 'grappelli.dashboard',
     # 'grappelli',
     'django.contrib.admin',
-
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
     'scheduler',
     'crispy_forms',
     'forms_fieldset',
+    'rest_framework'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
