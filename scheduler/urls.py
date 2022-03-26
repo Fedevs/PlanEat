@@ -1,6 +1,6 @@
 from django.urls import path
 
-from schedule import views
+from scheduler import views
 
 urlpatterns = [
     path('', views.scheduler, name='scheduler'),
