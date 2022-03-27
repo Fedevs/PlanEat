@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 
 from .forms import IngredientForm, MealForm, RecipeFormSet, ScheduleForm, IngredientListForm
-from .schedule import (
+from .scheduler import (
     create_or_update_week_menu, get_current_menu, get_ingredients_needed
 )
 
