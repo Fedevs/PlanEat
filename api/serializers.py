@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from schedule.models import Ingredient, Meal, Recipe, Category, Schedule
+from scheduler.models import Ingredient, Meal, Recipe, Category, Schedule
 
 
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):

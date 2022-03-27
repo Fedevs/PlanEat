@@ -17,6 +17,7 @@ class IngredientForm(forms.ModelForm):
             ingredient.save()
         return ingredient
 
+
 class MealForm(forms.ModelForm):
 
     class Meta:
@@ -34,8 +35,8 @@ class MealForm(forms.ModelForm):
             meal.save()
         return meal
 
-class RecipeForm(forms.ModelForm):
 
+class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
@@ -58,6 +59,18 @@ class RecipeForm(forms.ModelForm):
                 return recipe
 
         return None
+
+
+class IngredientListForm(forms.Form):
+    start_date = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
+    yields = forms.IntegerField(label='Porciones')
+
+
+class ScheduleForm(forms.Form):
+    start_date = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
+
 
 RecipeFormSet = forms.inlineformset_factory(
     Meal, Recipe, can_delete=False, form=RecipeForm, extra=1

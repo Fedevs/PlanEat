@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from schedule.models import Ingredient, Meal, Recipe, Category, Schedule
+from scheduler.models import Ingredient, Meal, Recipe, Category, Schedule
 from api.serializers import (
     IngredientSerializer, MealSerializer, RecipeSerializer,
     CategorySerializer, ScheduleSerializer)

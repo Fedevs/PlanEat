@@ -1,35 +1,15 @@
 <div style="display: flex; justify-content: space-around;">
     <div>
         <div>
-            <h1> Cambios en el menu </h1>
-            
-            {% if menu_changes|length %}
-                <ul>
-                    {% for schedule in menu_changes %}
-                        {% if schedule.meal %}
-                            <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <div>No hay cambios en el menu</div>
-            {% endif %}
-        </div>
-        <div>
-            <h1> Menu cumpleto </h1>
-            
-            <ul>
-                {% for schedule in full_menu %}
-                    {% if schedule.meal %}
-                        <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <h3>Lista de compras</h3>
+            <form action="{% url 'ingredients_list' %}" method="POST">{% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Generar lista</button>
+            </form>
         </div>
     </div>
     <div>
         <h1> Ingredientes a comprar </h1>
-        
         <ul>
             {% for name, info in ingredients.items %}
                 <li>{{name}}: {{info.quantity}} {{info.unit}}</li>
