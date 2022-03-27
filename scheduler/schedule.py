@@ -6,16 +6,12 @@ from django.db.models import Q
 from .models import Meal, Schedule
 
 
-def create_or_update_week_menu():
-    days = calendar.day_name
-    starting_date = date.today()
-    current_date = starting_date
+def create_or_update_week_menu(start_date, end_date):
+    days = (end_date - start_date).days
+    current_date = start_date
     menu_changes = []
 
-    for _ in days:
-        if days[current_date.weekday()] == 'Monday':
-            break
-
+    for _ in range(0, days):
         for meal_time in ['LN', 'DN']:
             if Schedule.objects.filter(
                 date=current_date, meal_time=meal_time, meal__isnull=False
@@ -53,18 +49,8 @@ def meal_validity(meal: Meal, current_date, meal_time):
     return not meal.category.name in previous_categories
 
 
-def get_last_monday():
-    days = calendar.day_name
-    today = date.today()
-
-    last_monday = today - timedelta(days=today.weekday())
-
-    return last_monday
-
-
-def get_current_menu():
-    last_monday = get_last_monday()
-    menu = Schedule.objects.filter(date__gte=last_monday)
+def get_current_menu(start_date, end_date, yields=1):
+    menu = Schedule.objects.filter(date__gte=start_date, date__lte=end_date)
 
     return menu
 
