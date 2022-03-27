@@ -1,0 +1,37 @@
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        <div>
+            <h3>Menú</h3>
+            <form action="{% url 'scheduler' %}" method="POST">{% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Generar menú</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div>
+            <h3> Cambios en el menu </h3>
+            {% if menu_changes|length %}
+                <ul>
+                    {% for schedule in menu_changes %}
+                        {% if schedule.meal %}
+                            <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div>No hay cambios en el menu</div>
+            {% endif %}
+        </div>
+        <div>
+            <h3> Menu cumpleto </h3>
+            <ul>
+                {% for schedule in full_menu %}
+                    {% if schedule.meal %}
+                        <li>{{ schedule.date }} {{ schedule.schedule_time }} {{ schedule.meal.name }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
