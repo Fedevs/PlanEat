@@ -22,7 +22,7 @@ def scheduler(request):
             end_date = cd.get('end_date')
 
             menu_changes = create_or_update_week_menu(start_date, end_date)
-            full_menu = get_current_menu()
+            full_menu = get_current_menu(start_date, end_date)
 
     context = dict(
         menu_changes=menu_changes,
