@@ -119,7 +119,7 @@ jobs:
           pip install pygraphviz pydotplus
       - name: Create der.png
         run: |
-          ./manage.py graph_models --arrow-shape normal --all-applications --group-models --language es --disable-abstract-fields --output der.png
+          ./manage.py graph_models --arrow-shape normal --group-models --language es --disable-abstract-fields --output der.png scheduler
       - name: Save der.png
         uses: actions/upload-artifact@v2
         with:
