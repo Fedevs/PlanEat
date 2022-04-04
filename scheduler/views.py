@@ -45,8 +45,9 @@ def ingredients_list(request):
             start_date = cd.get('start_date')
             end_date = cd.get('end_date')
             yields = cd.get('yields')
-            full_menu = get_current_menu(start_date, end_date, yields)
-            ingredients = get_ingredients_needed(full_menu)
+
+            full_menu = get_current_menu(start_date, end_date)
+            ingredients = get_ingredients_needed(full_menu, yields)
 
     context = dict(
         full_menu=full_menu,
