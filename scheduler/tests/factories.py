@@ -17,7 +17,7 @@ TAG_CHOICE_IDS = get_ids_from_choices(Meal.TAG_CHOICES)
 class IngredientFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Ingredient
-    
+
     name = factory.Faker('pystr', min_chars=5)
     measurement_unit = factory.fuzzy.FuzzyChoice(MEASUREMENT_UNIT_CHOICE_IDS)
 
@@ -25,7 +25,7 @@ class IngredientFactory(factory.django.DjangoModelFactory):
 class CategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Category
-    
+
     name = factory.Faker('pystr', min_chars=5)
     frequency = factory.fuzzy.FuzzyInteger(0, 15)
 

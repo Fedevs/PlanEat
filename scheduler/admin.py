@@ -12,7 +12,7 @@ class RecipeInline(admin.StackedInline):
 
 
 class MealAdmin(admin.ModelAdmin):
-    search_fields = ('name', )
+    search_fields = ('name',)
     inlines = [
         RecipeInline,
     ]
@@ -29,8 +29,16 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class ScheduleAdmin(admin.ModelAdmin):
     search_fields = ('meal__name',)
-    list_filter = ('date', 'meal_time', 'meal__category',)
-    list_display = ('date', 'meal_time', 'meal',)
+    list_filter = (
+        'date',
+        'meal_time',
+        'meal__category',
+    )
+    list_display = (
+        'date',
+        'meal_time',
+        'meal',
+    )
     autocomplete_fields = ['meal']
 
 

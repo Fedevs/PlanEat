@@ -1,11 +1,9 @@
-from distutils.command.clean import clean
 from django import forms
 
 from .models import Ingredient, Meal, Recipe
 
 
 class IngredientForm(forms.ModelForm):
-
     class Meta:
         model = Ingredient
         fields = ['name', 'measurement_unit']
@@ -19,7 +17,6 @@ class IngredientForm(forms.ModelForm):
 
 
 class MealForm(forms.ModelForm):
-
     class Meta:
         model = Meal
         fields = ['name', 'cooking_time', 'tags', 'day_time', 'category']
@@ -37,12 +34,13 @@ class MealForm(forms.ModelForm):
 
 
 class RecipeForm(forms.ModelForm):
-
     class Meta:
         model = Recipe
         fields = ['ingredient', 'quantity']
         widgets = {
-            'ingredient': forms.Select(attrs={'class': 'form-control ingredient'}),
+            'ingredient': forms.Select(
+                attrs={'class': 'form-control ingredient'}
+            ),
             'quantity': forms.TextInput(attrs={'class': 'form-control quant'}),
         }
 
@@ -62,14 +60,22 @@ class RecipeForm(forms.ModelForm):
 
 
 class IngredientListForm(forms.Form):
-    start_date = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
-    end_date = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
+    start_date = forms.DateField(
+        label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    end_date = forms.DateField(
+        label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'})
+    )
     yields = forms.IntegerField(label='Porciones')
 
 
 class ScheduleForm(forms.Form):
-    start_date = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
-    end_date = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
+    start_date = forms.DateField(
+        label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    end_date = forms.DateField(
+        label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'})
+    )
 
 
 RecipeFormSet = forms.inlineformset_factory(

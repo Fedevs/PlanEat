@@ -3,7 +3,10 @@ import pytest
 from scheduler.models import Schedule
 from scheduler.scheduler import get_ingredients_needed
 from scheduler.tests.factories import (
-    IngredientFactory, MealFactory, RecipeFactory, ScheduleFactory
+    IngredientFactory,
+    MealFactory,
+    RecipeFactory,
+    ScheduleFactory,
 )
 
 
