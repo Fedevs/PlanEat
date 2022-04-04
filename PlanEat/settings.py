@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'scheduler',
     'crispy_forms',
     'forms_fieldset',
-    'rest_framework'
+    'rest_framework',
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
