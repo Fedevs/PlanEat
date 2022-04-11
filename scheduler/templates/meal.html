@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% block content %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
+{% block page-title %}{% trans "Create meal" %}{% endblock %}
+
+{% block content %}
 <style>
     .ingredientes p{
       width: 45% !important;
