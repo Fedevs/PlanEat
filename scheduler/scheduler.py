@@ -49,13 +49,13 @@ def meal_validity(meal: Meal, current_date, meal_time):
     return not meal.category.name in previous_categories
 
 
-def get_current_menu(start_date, end_date, yields=1):
+def get_current_menu(start_date, end_date):
     menu = Schedule.objects.filter(date__gte=start_date, date__lte=end_date)
 
     return menu
 
 
-def get_ingredients_needed(menu):
+def get_ingredients_needed(menu, yields=1):
     ingredients = {}
 
     for schedule in menu.iterator():
@@ -69,6 +69,8 @@ def get_ingredients_needed(menu):
                         'quantity': 0,
                         'unit': ingredient.measurement_unit,
                     }
-                
-                ingredients[ingredient.name]['quantity'] += recipe.quantity            
+
+                ingredients[ingredient.name]['quantity'] += (
+                    recipe.quantity * yields / schedule.meal.yields
+                )
     return ingredients
