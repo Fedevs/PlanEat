@@ -69,6 +69,8 @@ def get_ingredients_needed(menu, yields=1):
                         'quantity': 0,
                         'unit': ingredient.measurement_unit,
                     }
-                
-                ingredients[ingredient.name]['quantity'] += recipe.quantity * yields
+
+                ingredients[ingredient.name]['quantity'] += (
+                    recipe.quantity * yields / schedule.meal.yields
+                )
     return ingredients
