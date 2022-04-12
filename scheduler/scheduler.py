@@ -1,5 +1,4 @@
-import calendar
-from datetime import date, timedelta
+from datetime import timedelta
 
 from django.db.models import Q
 
@@ -29,7 +28,7 @@ def create_or_update_week_menu(start_date, end_date):
                     break
 
             new_meal_scheduled, _ = Schedule.objects.update_or_create(
-                date=current_date, meal_time=meal_time, defaults={"meal": meal}
+                date=current_date, meal_time=meal_time, defaults={'meal': meal}
             )
             menu_changes.append(new_meal_scheduled)
 
@@ -38,15 +37,17 @@ def create_or_update_week_menu(start_date, end_date):
 
 
 def meal_validity(meal: Meal, current_date, meal_time):
-    previous_meals = Schedule.objects.filter(
-        date__lte=current_date
-    ).exclude(
-        date=current_date, meal_time=meal_time
-    ).order_by('-date', 'meal_time')
-    meals_in_frequency = previous_meals[:meal.category.frequency]
-    previous_categories = meals_in_frequency.values_list('meal__category__name', flat=True)
+    previous_meals = (
+        Schedule.objects.filter(date__lte=current_date)
+        .exclude(date=current_date, meal_time=meal_time)
+        .order_by('-date', 'meal_time')
+    )
+    meals_in_frequency = previous_meals[: meal.category.frequency]
+    previous_categories = meals_in_frequency.values_list(
+        'meal__category__name', flat=True
+    )
 
-    return not meal.category.name in previous_categories
+    return meal.category.name not in previous_categories
 
 
 def get_current_menu(start_date, end_date):
@@ -60,7 +61,7 @@ def get_ingredients_needed(menu, yields=1):
 
     for schedule in menu.iterator():
         if schedule.meal is not None:
-            recipes = schedule.meal.recipes.all()       
+            recipes = schedule.meal.recipes.all()
             for recipe in recipes.iterator():
                 ingredient = recipe.ingredient
 

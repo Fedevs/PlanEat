@@ -12,20 +12,33 @@ class IngredientSerializer(serializers.HyperlinkedModelSerializer):
 class MealSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Meal
-        fields = ['name', 'tags', 'day_time', 'category', 'enabled',
-                  'cooking_time']
+        fields = [
+            'name',
+            'tags',
+            'day_time',
+            'category',
+            'enabled',
+            'cooking_time',
+        ]
 
 
 class RecipeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Recipe
-        fields = ['meal', 'ingredient', 'quantity', ]
+        fields = [
+            'meal',
+            'ingredient',
+            'quantity',
+        ]
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name', 'frequency', ]
+        fields = [
+            'name',
+            'frequency',
+        ]
 
 
 class ScheduleSerializer(serializers.HyperlinkedModelSerializer):

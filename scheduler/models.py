@@ -50,34 +50,54 @@ class Meal(models.Model):
         default='BR',
         verbose_name='Momento del día',
     )
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Categoria')
+    category = models.ForeignKey(
+        'Category',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name='Categoria',
+    )
     yields = models.PositiveIntegerField(verbose_name='Porciones', default=1)
-    cooking_time = models.DurationField(verbose_name='Tiempo de cocción', null=True, blank=True)
+    cooking_time = models.DurationField(
+        verbose_name='Tiempo de cocción', null=True, blank=True
+    )
     enabled = models.BooleanField(default=True, verbose_name='Habilitada')
 
     def __str__(self) -> str:
         return self.name
-    
+
     class Meta:
         verbose_name = 'Comida'
         verbose_name_plural = 'Comidas'
 
 
 class Recipe(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE,  verbose_name='Comida', related_name='recipes')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipes', verbose_name='Ingrediente')
+    meal = models.ForeignKey(
+        Meal,
+        on_delete=models.CASCADE,
+        verbose_name='Comida',
+        related_name='recipes',
+    )
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        related_name='recipes',
+        verbose_name='Ingrediente',
+    )
     quantity = models.FloatField(verbose_name='Cantidad')
 
     def __str__(self) -> str:
         return f'{self.meal}'
-    
+
     class Meta:
         verbose_name = 'Receta'
         verbose_name_plural = 'Recetas'
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Categoria', unique=True)
+    name = models.CharField(
+        max_length=50, verbose_name='Categoria', unique=True
+    )
     frequency = models.PositiveIntegerField(verbose_name='Frecuencia')
 
     def __str__(self) -> str:
@@ -102,7 +122,11 @@ class Schedule(models.Model):
     date = models.DateField(verbose_name='Fecha')
     is_eaten = models.BooleanField(default=False, verbose_name='Consumida')
     meal = models.ForeignKey(
-        'Meal', verbose_name='Comida', on_delete=models.CASCADE, null=True, blank=True
+        'Meal',
+        verbose_name='Comida',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     def __str__(self) -> str:
@@ -112,4 +136,7 @@ class Schedule(models.Model):
         verbose_name = 'Menú'
         verbose_name_plural = 'Menús'
         unique_together = ['date', 'meal_time']
-        ordering = ('date', '-meal_time',)
+        ordering = (
+            'date',
+            '-meal_time',
+        )
