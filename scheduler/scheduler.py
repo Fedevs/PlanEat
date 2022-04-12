@@ -72,6 +72,6 @@ def get_ingredients_needed(menu, yields=1):
                     }
 
                 ingredients[ingredient.name]['quantity'] += (
-                    recipe.quantity * yields
+                    recipe.quantity * yields / schedule.meal.yields
                 )
     return ingredients
